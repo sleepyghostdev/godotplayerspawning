@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://tiwp7wrwxh7p"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_i8rlh"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_a64e7"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4jefj"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_xglj4"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="Player" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+collision_layer = 2
+script = ExtResource("1_i8rlh")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_a64e7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_4jefj")
+
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.544855, 0)
+
+[node name="Camera" type="Camera3D" parent="Head"]
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_xglj4")
